@@ -164,9 +164,9 @@ function startVideoAndAR(video){
             mat4.multiply(pmat, cm, cm);
 
             var zrotation = Math.atan2(cm[0], cm[4]);
-            console.log("id ", id);
+            //console.log("id ", id);
 
-            if(id._check == 4){
+            if(id._check == 1){
 
                 var min = 0.1
                 var max  = 2;
@@ -180,7 +180,8 @@ function startVideoAndAR(video){
                     filter: "filter-1",
                     value: actualRotationValueToProvide
                 });
-            } else if(id._check == 1){
+            }
+            if(id._check == 2){
 
                 var min = 1
                 var max  = 30;
@@ -191,6 +192,20 @@ function startVideoAndAR(video){
 
                 radio("Controls:filter").broadcast({
                     filter: "filter-2",
+                    value: actualRotationValueToProvide
+                });
+            }
+            if(id._check == 3){
+
+                var min = 0.5
+                var max  = 2;
+                var clampedVal = Math.min(1, Math.max(0, Math.abs((zrotation*2) / Math.PI)));
+                var actualRotationValueToProvide = min + (max - min) * clampedVal;
+                radio("Audio:filter").broadcast({filter: 'filter-3',
+                    value: actualRotationValueToProvide});
+
+                radio("Controls:filter").broadcast({
+                    filter: "filter-3",
                     value: actualRotationValueToProvide
                 });
             }
