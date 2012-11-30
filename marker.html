@@ -8,10 +8,9 @@
 		
 		<style type="text/css">
 		button {
-			display: block;
-			width: 100%;
-			height: 50px;
-			margin-bottom: 20px;
+			display: inline-block;
+			width: 30%%;
+			height: 20px;
 		}
 
 		body {
@@ -26,20 +25,26 @@
 	</head>
 	<body>
 		<div>
+			<button onclick="chooseMarker(this.value)" value="1">Playback</button>
+			<button onclick="chooseMarker(this.value)" value="2">Distortion</button>
+			<button onclick="chooseMarker(this.value)" value="3">Low Pass</button>
+		</div>
+		<!--
+		<div>
 			<button onclick="chooseMarker(this.value)" value="0.png">This one</button>
-			
 			<button onclick="chooseMarker(this.value)" value="1">Playback</button>
 			<button onclick="chooseMarker(this.value)" value="2">Distortion</button>
 			<button onclick="chooseMarker(this.value)" value="3">Low Pass</button>
 			<button onclick="chooseMarker(this.value)" value="4">4</button>
 		</div>
+		-->
 		<img />
 		<script>
 
 			function chooseMarker(num) {
 				displayMarkerImage(num);
-				var div = document.querySelector('div');
-				div.parentNode.removeChild(div);
+				//var div = document.querySelector('div');
+				//div.parentNode.removeChild(div);
 			}
 
 			function displayMarkerImage(num) {
