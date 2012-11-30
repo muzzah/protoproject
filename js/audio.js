@@ -60,8 +60,8 @@ $(function() {
 		lowPassFilter.connect(outputMix);
 		// Create and specify parameters for the low-pass filter.
 		lowPassFilter.type = 0; // Low-pass filter. See BiquadFilterNode docs
-		lowPassFilter.frequency.value = 440; // Set cutoff to 440 HZ
-		setLowPassFrequency(2);
+		lowPassFilter.frequency.value = 400; // Set cutoff to 440 HZ
+		setLowPassFrequency(1);
 
 		audioInput.connect(lowPassFilter);
 

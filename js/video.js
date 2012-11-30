@@ -197,8 +197,8 @@ function startVideoAndAR(video){
             }
             if(id._check == 3){
 
-                var min = 0.5
-                var max  = 2;
+                var min = 0.1;
+                var max  = 1;
                 var clampedVal = Math.min(1, Math.max(0, Math.abs((zrotation*2) / Math.PI)));
                 var actualRotationValueToProvide = min + (max - min) * clampedVal;
                 radio("Audio:filter").broadcast({filter: 'filter-3',
