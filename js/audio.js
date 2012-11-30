@@ -6,13 +6,6 @@ $(function() {
 
 	setInterval(function() {
 		radio("Audio:filter").broadcast({
-			filter: 'filter-1',
-			value: Math.floor(Math.random() * 500) + 100
-		});
-	}, 3000);
-
-	setInterval(function() {
-		radio("Audio:filter").broadcast({
 			filter: 'filter-2',
 			value: Math.floor(Math.random() * 500) + 100
 		});
@@ -24,7 +17,9 @@ $(function() {
 	radio('Controls:filter').subscribe(function(msg) {
 		var filter = msg.filter;
 		var value = msg.value;
-		console.log(filter, value);
+		if (filter == 'filter-1') {
+			changePlaybackRate(value);
+		}
 	});		
 
 	info({ helloFromAudio: true });
@@ -39,6 +34,12 @@ $(function() {
    }], function (buffers) {
 
    		audioInput = createSourceWithBuffer(buffers.audioInput);
+
+   		// Broadcast current playback rate
+   		radio("Audio:filter").broadcast({
+				filter: 'filter-1',
+				value: audioInput.playbackRate.value
+			});
 
    		// Used by effects later
 			reverbBuffer = buffers.reverb;
@@ -88,6 +89,10 @@ $(function() {
 /*
 	Helpers
 */
+	function changePlaybackRate(val) {
+		audioInput.playbackRate.value = val;
+	}
+
 	// shortcut broadcast to info channel
 	function info(msg) {
 		radio("info").broadcast(msg);
