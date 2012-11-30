@@ -20,6 +20,9 @@ $(function() {
 		if (filter == 'filter-1') {
 			changePlaybackRate(value);
 		}
+		if (filter === 'filter-3') {
+			filters.filter3();
+		}
 	});		
 
 	info({ helloFromAudio: true });
