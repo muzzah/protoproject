@@ -73,7 +73,7 @@ input[type="range"]::-webkit-slider-thumb {
 	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ebf1f6), color-stop(50%,#abd3ee), color-stop(51%,#89c3eb), color-stop(100%,#d5ebfb));
 }
 
-input[type="range"]:hover ~ #rangevalue,input[type="range"]:active ~ #rangevalue {
+input[type="range"] ~ #rangevalue,input[type="range"]:active ~ #rangevalue {
 	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
 	filter: alpha(opacity=100);
 	opacity: 1;
