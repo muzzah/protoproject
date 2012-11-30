@@ -1,10 +1,5 @@
 $(function() {
 
-	/*
-	* Broadcast a 'filter' event every 3 seconds with a random value
-	*/
-
-
 	/* 
 	*	Listen for messages us telling us the user has just updated the controls
 	*/
@@ -15,6 +10,12 @@ $(function() {
 			changePlaybackRate(value);
 		} else if (filter == 'filter-2') {
 			setRingModulatorDistortion(value);
+		}
+		if (filter === 'filter-3') {
+			filters.filter3({
+				context: context,
+				value: value
+			});
 		}
 	});		
 
