@@ -1,0 +1,15 @@
+body {
+	font-family: 'Rambla', sans-serif;
+}
+
+header {
+	color: white;
+	padding: 10px;
+	background: black;
+	position: fixed;
+	width: 100%;
+}
+
+header h1 {
+	font-size: 2em;
+}
