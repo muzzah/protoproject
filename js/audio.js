@@ -21,7 +21,10 @@ $(function() {
 			changePlaybackRate(value);
 		}
 		if (filter === 'filter-3') {
-			filters.filter3();
+			filters.filter3({
+				context: context,
+				value: value
+			});
 		}
 	});		
 
