@@ -47,12 +47,12 @@ $(function() {
 			// create mix gain nodes
 	    outputMix = audioContext.createGainNode();
 
-			audioInput.connect(outputMix);
+		audioInput.connect(outputMix);
 	    outputMix.connect( audioContext.destination);
 
-	    play();
-
 	    window.s = audioInput;
+
+	    playAudio();
 
 	    //currentEffectNode = createReverb();
 	    //currentEffectNode.connect(audioInput);
@@ -63,16 +63,16 @@ $(function() {
 
    });
 
-	function play() {
+	function playAudio() {
 		audioInput.noteOn(0);
 	}
 
-	function pause() {
+	function pauseAudio() {
 		audioInput.noteOff(0);
 	}
 
-	window.play = play;
-	window.pause = pause;
+	window.playAudio = playAudio;
+	window.pauseAudio = pauseAudio;
 
 /*
 	Helpers
