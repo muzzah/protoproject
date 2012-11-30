@@ -14,3 +14,12 @@ header {
 header h1 {
 	font-size: 2em;
 }
+
+.ui-components {
+	margin-top: 70px;
+}
+
+.ui-components h2 {
+	font-size: 1.8em;
+	padding: 10px 20px;
+}	

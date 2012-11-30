@@ -1,8 +1,7 @@
 #slider {
-	width: 400px;
+	width: 40%;
 	height: 17px;
 	position: relative;
-	margin: 100px auto;
 	background: #10171D;
 	
 	-webkit-border-radius: 40px;
@@ -15,7 +14,7 @@
 }
 
 #slider .bar {
-	width: 388px;
+	width: 93%;
 	height: 5px;
 	background: #333;
 	position: relative;
@@ -39,7 +38,7 @@
 #slider .highlight {
 	height: 2px;
 	position: absolute;
-	width: 388px;
+	width: 93%;
 	top: 6px;
 	left: 6px;
 		
