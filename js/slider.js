@@ -9,7 +9,8 @@ $(function() {
 	});
 
 	$('.slider input').on('change', function(val) {
-		$(this).parent('.slider').find('.value').text($(this).val());
+		console.log("Changed " , val)
+        $(this).parent('.slider').find('.value').text($(this).val());
 
 		//When we change the slider manually, publish an event
 		var filterName = $(this).parent('.slider').attr('id');

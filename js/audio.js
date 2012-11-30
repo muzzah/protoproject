@@ -201,8 +201,9 @@ function createRingModulator() {
 }
 
 function setRingModulatorDistortion(val) {
+    console.log("Distortion ", val/25);
 	[vInDiode1, vInDiode2, vcDiode3, vcDiode4].forEach(function(diode) {
-    return diode.setDistortion(val);
+    return diode.setDistortion(val/25);
   });
 }
 
