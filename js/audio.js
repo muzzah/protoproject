@@ -10,13 +10,17 @@ $(function() {
 			changePlaybackRate(value);
 		} else if (filter == 'filter-2') {
 			setRingModulatorDistortion(value);
+		} else if (filter == 'filter-3') {
+			setLowPassFrequency(value);
 		}
+		/*
 		if (filter === 'filter-3') {
 			filters.filter3({
 				context: context,
 				value: value
 			});
 		}
+		*/
 	});		
 
 	info({ helloFromAudio: true });
@@ -34,20 +38,37 @@ $(function() {
 
    		// Broadcast current playback rate
    		radio("Audio:filter").broadcast({
-				filter: 'filter-1',
-				value: audioInput.playbackRate.value
-			});
+			filter: 'filter-1',
+			value: audioInput.playbackRate.value
+		});
 
-			radio("Audio:filter").broadcast({
-				filter: 'filter-2',
-				value: 0
-			});
+		radio("Audio:filter").broadcast({
+			filter: 'filter-2',
+			value: 0
+		});
 
+		radio("Audio:filter").broadcast({
+			filter: 'filter-3',
+			value: 2
+		});
 
-			// create mix gain nodes
 	    outputMix = audioContext.createGainNode();
 
-		audioInput.connect(outputMix);
+	    
+		// Create the filter
+		lowPassFilter = context.createBiquadFilter();
+		// Create the audio graph.
+		lowPassFilter.connect(outputMix);
+		// Create and specify parameters for the low-pass filter.
+		lowPassFilter.type = 0; // Low-pass filter. See BiquadFilterNode docs
+		lowPassFilter.frequency.value = 440; // Set cutoff to 440 HZ
+		setLowPassFrequency(2);
+		
+		audioInput.connect(lowPassFilter);
+
+		lowPassFilter.connect(outputMix);
+		
+		//audioInput.connect(outputMix);
 	    outputMix.connect( audioContext.destination);
 
 	    window.s = audioInput;
@@ -103,6 +124,14 @@ $(function() {
 /*
 	Effects
 */
+
+function setLowPassFrequency (value) {
+    var minValue = 40;
+    var maxValue = context.sampleRate / 2;
+    var numberOfOctaves = Math.log(maxValue / minValue) / Math.LN2;
+    var multiplier = Math.pow(2, numberOfOctaves * (value - 1.0));
+    lowPassFilter.frequency.value = maxValue * multiplier;
+}
 
 function changePlaybackRate(val) {
 	audioInput.playbackRate.value = val;
