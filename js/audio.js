@@ -1,5 +1,42 @@
 $(function() {
 
+
+
+	// Basic setup for the canvas element, so we can draw something on screen
+	function setupDrawingCanvas() {
+		canvas = document.createElement('canvas');
+		// 1024 is the number of samples that's available in the frequency data
+		canvas.width = 1024;
+		// 255 is the maximum magnitude of a value in the frequency data
+		canvas.height = 255;
+		document.body.appendChild(canvas);
+		canvasContext = canvas.getContext('2d');
+		canvasContext.fillStyle = '#000';
+	}
+
+
+
+	function draw() {
+		// Setup the next frame of the drawing
+	  webkitRequestAnimationFrame(draw);
+	  
+	  // Create a new array that we can copy the frequency data into
+		var freqByteData = new Uint8Array(analyser.frequencyBinCount);
+		// Copy the frequency data into our new array
+		analyser.getByteFrequencyData(freqByteData);
+
+		//console.log(freqByteData);
+
+		// Clear the drawing display
+		canvasContext.clearRect(0, 0, canvas.width, canvas.height);
+
+		// For each "bucket" in the frequency data, draw a line corresponding to its magnitude
+		for (var i = 0; i < freqByteData.length; i++) {
+			canvasContext.fillRect(i, canvas.height - freqByteData[i], 1, canvas.height);
+		}
+	}
+
+
 	/* 
 	*	Listen for messages us telling us the user has just updated the controls
 	*/
@@ -74,6 +111,11 @@ $(function() {
 
 	    playAudio();
 
+	    /* Visualise */
+	    //setupWebAudio();
+	    setupDrawingCanvas();
+	    draw();
+
 	    //currentEffectNode = createReverb();
 	    //currentEffectNode.connect(audioInput);
 
@@ -105,6 +147,14 @@ $(function() {
 
   function createSourceWithBuffer(buffer) {
     var source = context.createBufferSource();
+
+
+
+	analyser = context.createAnalyser();
+	source.connect(analyser);
+	analyser.connect(context.destination);
+
+
 
     console.log('buffer', buffer)
 
