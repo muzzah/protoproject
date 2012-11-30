@@ -30,7 +30,6 @@ $(function() {
 			output;
 
 	var assets = new AbbeyLoad( [{
-       'reverb': 'sounds/cardiod-rear-levelled.wav',
        'audioInput' : 'sound.wav'
    }], function (buffers) {
 
@@ -63,7 +62,7 @@ $(function() {
 		lowPassFilter.type = 0; // Low-pass filter. See BiquadFilterNode docs
 		lowPassFilter.frequency.value = 440; // Set cutoff to 440 HZ
 		setLowPassFrequency(2);
-		
+
 		audioInput.connect(lowPassFilter);
 
 		lowPassFilter.connect(outputMix);
