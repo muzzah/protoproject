@@ -23,4 +23,8 @@ header h1 {
 .ui-components h2 {
 	font-size: 1.8em;
 	padding: 10px 20px;
-}	
+}
+
+video {
+	display: none;
+}
