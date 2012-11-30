@@ -1,16 +1,5 @@
 $(function() {
 
-	/*
-	* Broadcast a 'filter' event every 3 seconds with a random value
-	*/
-
-	setInterval(function() {
-		radio("Audio:filter").broadcast({
-			filter: 'filter-2',
-			value: Math.floor(Math.random() * 500) + 100
-		});
-	}, 3500);
-
 	/* 
 	*	Listen for messages us telling us the user has just updated the controls
 	*/
