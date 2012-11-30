@@ -10,10 +10,24 @@
 				height: 50px;
 				margin-bottom: 20px;
 			}
+
+			body {
+				text-align: center;
+			}
+
+			img {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+
+				margin: -150px -150px 0 0;
+			}
 			</style>
 	</head>
 	<body>
 		<div>
+			<button onclick="chooseMarker(this.value)" value="0.png">This one</button>
+			
 			<button onclick="chooseMarker(this.value)" value="1">1</button>
 			<button onclick="chooseMarker(this.value)" value="2">2</button>
 			<button onclick="chooseMarker(this.value)" value="3">3</button>
