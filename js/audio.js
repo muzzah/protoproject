@@ -5,10 +5,27 @@ $(function() {
 	*/
 
 	setInterval(function() {
-		radio("Audio:filter1").broadcast({
-			value: Math.floor(Math.random() * 100) + 1
+		radio("Audio:filter").broadcast({
+			filter: 'filter-1',
+			value: Math.floor(Math.random() * 500) + 100
 		});
 	}, 3000);
+
+	setInterval(function() {
+		radio("Audio:filter").broadcast({
+			filter: 'filter-2',
+			value: Math.floor(Math.random() * 500) + 100
+		});
+	}, 3500);
+
+	/* 
+	*	Listen for messages us telling us the user has just updated the controls
+	*/
+	radio('Controls:filter').subscribe(function(msg) {
+		var filter = msg.filter;
+		var value = msg.value;
+		console.log(filter, value);
+	});		
 
 	info({ helloFromAudio: true });
 
