@@ -18,6 +18,9 @@ $(function() {
 		});
 	}, 3500);
 
+	/* 
+	*	Listen for messages us telling us the user has just updated the controls
+	*/
 	radio('Controls:filter').subscribe(function(msg) {
 		var filter = msg.filter;
 		var value = msg.value;
