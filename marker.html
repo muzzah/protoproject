@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head></head>
+	<body>
+		<div>
+			<button onclick="chooseMarker(this.value)" value="1">1</button>
+			<button onclick="chooseMarker(this.value)" value="2">2</button>
+			<button onclick="chooseMarker(this.value)" value="3">3</button>
+			<button onclick="chooseMarker(this.value)" value="4">4</button>
+		</div>
+		<img />
+		<script>
+
+			function chooseMarker(num) {
+				displayMarkerImage(num);
+				var div = document.querySelector('div');
+				div.parentNode.removeChild(div);
+			}
+
+			function displayMarkerImage(num) {
+				document.querySelector('img').src = 'markers/' + num;
+			}
+
+			/*
+			function displayMarkerFromHash() {
+				console.log('marker');
+				markerNum = location.hash.replace('#', '');
+				document.querySelector('img').src = 'markers/' + markerNum;
+			}
+
+			window.onload = displayMarkerFromHash;
+			window.onhashchange = displayMarkerFromHash;
+			*/
+		</script>
+	</body>
+</html>
