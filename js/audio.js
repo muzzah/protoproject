@@ -6,7 +6,7 @@ $(function() {
 
 	setInterval(function() {
 		radio("Audio:filter1").broadcast({
-			value: Math.floor(Math.random() * 100) + 1
+			value: Math.floor(Math.random() * 500) + 100
 		});
 	}, 3000);
 

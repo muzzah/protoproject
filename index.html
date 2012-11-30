@@ -17,11 +17,22 @@
 
 <article class="ui-components">
 	<h2>Controls</h2>
-	<div id="slider">
-		<input class="bar" type="range" id="rangeinput" value="50" onchange="rangevalue.value=value"/>
-		<span class="highlight"></span>
-		<output id="rangevalue">50</output>
+
+	<div class="slider" id="slider1">
+		<p>Audio Filter #1: <span class="value"></span></p>
+		<input type="range" min="100" max="500" />
+	</div>
+
+	<div class="slider" id="slider2">
+		<p>Audio Filter #2: <span class="value"></span></p>
+		<input type="range" min="100" max="500" />
+	</div>
+
+	<div class="slider" id="slider3">
+		<p>Audio Filter #3: <span class="value"></span></p>
+		<input type="range" min="100" max="500" />
 	</div>	
+
 </article>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js" type="text/javascript"></script>
