@@ -10,35 +10,35 @@ $(function() {
 		});
 	}, 3000);
 
-info({ helloFromAudio: true });
+	info({ helloFromAudio: true });
 
-var context = new webkitAudioContext(),
-		source;
+	var context = new webkitAudioContext(),
+			source;
 
-SOUND_URL = "sound.mp3";
+	SOUND_URL = "sound.mp3";
 
-loadSoundIntoBuffer(SOUND_URL, bufferLoaded);
+	loadSoundIntoBuffer(SOUND_URL, bufferLoaded);
 
-function bufferLoaded(buffer) {
-	// Buffer contains file
-	source = createSourceWithBuffer(buffer).source;
+	function bufferLoaded(buffer) {
+		// Buffer contains file
+		source = createSourceWithBuffer(buffer).source;
 
-	// Connect to destination
-	source.connect(context.destination);
+		// Connect to destination
+		source.connect(context.destination);
 
-	source.noteOn(0);
-};
+		source.noteOn(0);
+	};
 
-function play() {
-	source.noteOn(0);
-}
+	function play() {
+		source.noteOn(0);
+	}
 
-function pause() {
-	source.noteOff(0);
-}
+	function pause() {
+		source.noteOff(0);
+	}
 
-window.play = play;
-window.pause = pause;
+	window.play = play;
+	window.pause = pause;
 
 /*
 	Helpers
