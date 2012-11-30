@@ -12,29 +12,57 @@ $(function() {
 
 	info({ helloFromAudio: true });
 
-	var context = new webkitAudioContext(),
-			source;
+	var context = audioContext = new webkitAudioContext(),
+			source,
+			output;
 
-	SOUND_URL = "sound.mp3";
+	var assets = new AbbeyLoad( [{
+       'reverb': 'sounds/cardiod-rear-levelled.wav',
+       'audioInput' : 'sound.wav'
+   }], function (buffers) {
 
-	loadSoundIntoBuffer(SOUND_URL, bufferLoaded);
+   		audioInput = createSourceWithBuffer(buffers.audioInput);
 
-	function bufferLoaded(buffer) {
-		// Buffer contains file
-		source = createSourceWithBuffer(buffer).source;
+   		// Used by effects later
+			reverbBuffer = buffers.reverb;
+			wetGain = context.createGainNode();
 
-		// Connect to destination
-		source.connect(context.destination);
+			// create mix gain nodes
+	    outputMix = audioContext.createGainNode();
+	    dryGain = audioContext.createGainNode();
+	    wetGain = audioContext.createGainNode();
+	    effectInput = audioContext.createGainNode();
+	    audioInput.connect(dryGain);
 
-		source.noteOn(0);
-	};
+	    //audioInput.connect(analyser1);
+	    
+	    audioInput.connect(effectInput);
+	    dryGain.connect(outputMix);
+	    wetGain.connect(outputMix);
+	    outputMix.connect( audioContext.destination);
+
+	    //outputMix.connect(analyser2);
+	    //crossfade(1.0);
+	    //changeEffect(0);
+	    //updateAnalysers();
+
+	    play();
+
+	    window.s = audioInput;
+
+	    currentEffectNode = createReverb();
+	    currentEffectNode.connect(audioInput);
+
+	    //createDelay();
+
+   });
 
 	function play() {
-		source.noteOn(0);
+		audioInput.noteOn(0);
 	}
 
 	function pause() {
-		source.noteOff(0);
+		audioInput.noteOff(0);
 	}
 
 	window.play = play;
@@ -68,6 +96,9 @@ $(function() {
 
   function createSourceWithBuffer(buffer) {
     var source = context.createBufferSource();
+
+    console.log('buffer', buffer)
+
     // Create a gain node.
     source.buffer = buffer;
     // Turn on looping.
@@ -76,10 +107,54 @@ $(function() {
     // Connect gain to destination.
     //gainNode.connect(context.destination);
 
-    return {
-      source: source
-    };
+    return source;
   }
+
+
+/*
+	Effects
+*/
+var convolver,
+		wetGain,
+		reverbBuffer;
+
+function createReverb() {
+    var convolver = context.createConvolver();
+    convolver.buffer = reverbBuffer; // impulseResponse( 2.5, 2.0 );  // reverbBuffer;
+    convolver.connect( wetGain );
+    return convolver;
+}
+
+window.createReverb = createReverb;
+
+function createDelay() {
+    var delayNode = audioContext.createDelayNode();
+    delayNode.delayTime.value = 3; //parseFloat( document.getElementById("dtime").value );
+    dtime = delayNode;
+
+    var gainNode = audioContext.createGainNode();
+    gainNode.gain.value = 1; //parseFloat( document.getElementById("dregen").value );
+    dregen = gainNode;
+
+    gainNode.connect( delayNode );
+    delayNode.connect( gainNode );
+    delayNode.connect( wetGain );
+
+    return delayNode;
+}
+
+function createBase() {
+	var bass = context.createBiquadFilter();
+ 
+  // Set up the biquad filter node with a low-pass filter type
+  bass.type = 3;
+  bass.frequency.value = 440;
+  bass.Q.value = 0;
+  bass.gain.value = 0;
+
+  return bass;
+}
+
 
 
 });
