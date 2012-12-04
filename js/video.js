@@ -8,7 +8,7 @@ var alertUserDoesntHaveWebRTCSupport = function (e) {
     alert('getUserMedia() is not supported in your browser');
 };
 
-function startClicked() {
+function startVideo() {
         console.log("start clicked");
 
     navigator.webkitGetUserMedia({ "audio":false, "video":true }, function (localMediaStream) {

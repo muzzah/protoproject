@@ -1,6 +1,10 @@
 $(function() {
 
 
+	window.startAudio = function () {
+		console.log('startAudio')
+		playAudio();
+	}
 
 	// Basic setup for the canvas element, so we can draw something on screen
 	function setupDrawingCanvas() {
@@ -108,8 +112,6 @@ $(function() {
 	    outputMix.connect( audioContext.destination);
 
 	    window.s = audioInput;
-
-	    playAudio();
 
 	    /* Visualise */
 	    //setupWebAudio();

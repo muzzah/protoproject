@@ -10,7 +10,10 @@ $(function() {
     radio("info").subscribe(function (msg) { console.info('info', msg); });
     setupPubSub();
 
-    $("#startbutton").click(startClicked);
+    $("#startbutton").click(function () {
+        startVideo();
+        startAudio();
+    });
 });
 
 function setupPubSub(){
