@@ -217,8 +217,8 @@ function startVideoAndAR(video){
             if (r.age > 10) delete pastResults[i];
             r.age++;
         }
-        var w2 = 320/2;
-        var h2 = 240/2;
+        var w2 = 640/2;
+        var h2 = 480/2;
         for (var i in pastResults) {
             var mat = pastResults[i].transform;
             var verts = [
