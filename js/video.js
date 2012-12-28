@@ -28,7 +28,7 @@ function startVideoAndAR2(video){
     var canvas = document.createElement('canvas');
     canvas.width = 640;
     canvas.height = 480;
-    document.body.appendChild(canvas);
+    document.querySelector(".media").appendChild(canvas);
 
     // Create a RGB raster object for the 2D canvas.
 // JSARToolKit uses raster objects to read image data.
@@ -98,7 +98,8 @@ function startVideoAndAR(video){
     canvas.width = 640;
     canvas.height = 480;
     var raster = new NyARRgbRaster_Canvas2D(canvas);
-    document.body.appendChild(canvas);
+    canvas.id = "ar-canvas";
+    document.querySelector(".media").appendChild(canvas);
 
     var param = new FLARParam(640,480);
     var pmat = mat4.identity();

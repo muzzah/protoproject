@@ -17,7 +17,6 @@ $(function() {
 			// 255 is the maximum magnitude of a value in the frequency data
 			visualisation[0].height = 255;
 
-			//document.body.appendChild(canvas);
 			var canvasContext = visualisation[0].getContext('2d');
 			canvasContext.fillStyle = '#000';
 
@@ -36,7 +35,7 @@ $(function() {
 			var freqByteData = new Uint8Array(analyser.frequencyBinCount);
 			// Copy the frequency data into our new array
 			analyser.getByteFrequencyData(freqByteData);
-			debugger;
+
 			// Clear the drawing display
 			canvasContext.clearRect(0, 0, canvas.width, canvas.height);
 
