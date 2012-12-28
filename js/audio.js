@@ -6,21 +6,73 @@ $(function() {
 		playAudio();
 	}
 
+	var visualisation = {
+		init: function() {
+			var visualisation = $("<canvas>").appendTo(".media");
+			visualisation.addClass("visualisation");
+
+			//canvas = document.createElement('canvas');
+			// 1024 is the number of samples that's available in the frequency data
+			visualisation[0].width = visualisation.width();
+			// 255 is the maximum magnitude of a value in the frequency data
+			visualisation[0].height = visualisation.height();
+			//document.body.appendChild(canvas);
+			var canvasContext = visualisation[0].getContext('2d');
+			canvasContext.fillStyle = '#000';
+
+			this.canvasContext = canvasContext;
+			this.canvas = visualisation;
+			this.draw();	
+		},
+
+		draw: function() {
+			var canvasContext = this.canvasContext;
+			var canvas = this.canvas;
+			// Setup the next frame of the drawing
+		 	 webkitRequestAnimationFrame(this.draw.bind(this));
+			  
+		  // Create a new array that we can copy the frequency data into
+			var freqByteData = new Uint8Array(analyser.frequencyBinCount);
+			// Copy the frequency data into our new array
+			analyser.getByteFrequencyData(freqByteData);
+
+			//console.log(freqByteData);
+
+			// Clear the drawing display
+			canvasContext.clearRect(0, 0, canvas.width, canvas.height);
+
+			// For each "bucket" in the frequency data, draw a line corresponding to its magnitude
+			for (var i = 0; i < freqByteData.length; i++) {
+				canvasContext.fillRect(i, canvas.height - freqByteData[i], 1, canvas.height);
+			}
+		}
+	}; //visualisation
+
 	// Basic setup for the canvas element, so we can draw something on screen
 	function setupDrawingCanvas() {
-		canvas = document.createElement('canvas');
+		var visualisation = $("<canvas>").appendTo(".media");
+		visualisation.addClass("visualisation");
+
+		//canvas = document.createElement('canvas');
 		// 1024 is the number of samples that's available in the frequency data
-		canvas.width = 1024;
+		visualisation[0].width = visualisation.width();
 		// 255 is the maximum magnitude of a value in the frequency data
-		canvas.height = 255;
-		document.body.appendChild(canvas);
-		canvasContext = canvas.getContext('2d');
+		visualisation[0].height = visualisation.height();
+		//document.body.appendChild(canvas);
+		var canvasContext = visualisation[0].getContext('2d');
 		canvasContext.fillStyle = '#000';
+
+		return {
+			canvasContext: canvasContext,
+			canvas: visualisation[0]
+		};
 	}
 
 
 
-	function draw() {
+	function draw(obj) {
+		var canvasContext = obj.canvasContext;
+		var canvas = obj.canvas;
 		// Setup the next frame of the drawing
 	  webkitRequestAnimationFrame(draw);
 	  
@@ -115,8 +167,10 @@ $(function() {
 
 	    /* Visualise */
 	    //setupWebAudio();
-	    setupDrawingCanvas();
-	    draw();
+	    //var canvas = setupDrawingCanvas();
+	    //draw(canvas);
+
+	    visualisation.init();
 
 	    //currentEffectNode = createReverb();
 	    //currentEffectNode.connect(audioInput);
