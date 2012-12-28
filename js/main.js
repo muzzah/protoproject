@@ -25,6 +25,7 @@ $(function() {
     audioDisabled();
 
     $("#start").click(function () {
+        $(this).fadeOut();
         startVideo();
         startAudio();
         audioEnabled();
