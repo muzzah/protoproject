@@ -10,5 +10,5 @@ Current work in progress includes enabling peer-to-peer video to allow for multi
 audio.
 
 Screenshot:
-![Screenshot](screenshot.png)
+![Screenshot](https://raw.github.com/mustafasezgin/protoproject/master/srceenshot.png)
 
