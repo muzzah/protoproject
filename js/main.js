@@ -10,9 +10,24 @@ $(function() {
     radio("info").subscribe(function (msg) { console.info('info', msg); });
     setupPubSub();
 
-    $("#startbutton").click(function () {
+
+    var audioDisabled = function() {
+        $(".ui-components").addClass("disabled");
+        $(".slider input").attr({disabled: 'disabled'})
+    };
+
+    var audioEnabled = function() {
+        $(".ui-components").removeClass("disabled");
+        $(".slider input").attr({disabled: false});
+    };
+
+    /* Playing of audio if initiated by the user, therefore we should disable audio controls at the start */
+    audioDisabled();
+
+    $("#start").click(function () {
         startVideo();
         startAudio();
+        audioEnabled();
     });
 });
 
