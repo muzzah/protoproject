@@ -294,5 +294,5 @@ input[type="range"]::-webkit-slider-thumb {
 .visualisation {
 	display: block;
 	width: 100%;
-	height: 140px;
+	height: 50px;
 }

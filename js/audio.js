@@ -4,7 +4,7 @@ $(function() {
 	window.startAudio = function () {
 		console.log('startAudio')
 		playAudio();
-	}
+	}	
 
 	var visualisation = {
 		init: function() {
@@ -13,15 +13,16 @@ $(function() {
 
 			//canvas = document.createElement('canvas');
 			// 1024 is the number of samples that's available in the frequency data
-			visualisation[0].width = visualisation.width();
+			visualisation[0].width = 1024;
 			// 255 is the maximum magnitude of a value in the frequency data
-			visualisation[0].height = visualisation.height();
+			visualisation[0].height = 255;
+
 			//document.body.appendChild(canvas);
 			var canvasContext = visualisation[0].getContext('2d');
 			canvasContext.fillStyle = '#000';
 
 			this.canvasContext = canvasContext;
-			this.canvas = visualisation;
+			this.canvas = visualisation[0];
 			this.draw();	
 		},
 
@@ -35,9 +36,7 @@ $(function() {
 			var freqByteData = new Uint8Array(analyser.frequencyBinCount);
 			// Copy the frequency data into our new array
 			analyser.getByteFrequencyData(freqByteData);
-
-			//console.log(freqByteData);
-
+			debugger;
 			// Clear the drawing display
 			canvasContext.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -48,49 +47,9 @@ $(function() {
 		}
 	}; //visualisation
 
-	// Basic setup for the canvas element, so we can draw something on screen
-	function setupDrawingCanvas() {
-		var visualisation = $("<canvas>").appendTo(".media");
-		visualisation.addClass("visualisation");
-
-		//canvas = document.createElement('canvas');
-		// 1024 is the number of samples that's available in the frequency data
-		visualisation[0].width = visualisation.width();
-		// 255 is the maximum magnitude of a value in the frequency data
-		visualisation[0].height = visualisation.height();
-		//document.body.appendChild(canvas);
-		var canvasContext = visualisation[0].getContext('2d');
-		canvasContext.fillStyle = '#000';
-
-		return {
-			canvasContext: canvasContext,
-			canvas: visualisation[0]
-		};
-	}
-
-
-
-	function draw(obj) {
-		var canvasContext = obj.canvasContext;
-		var canvas = obj.canvas;
-		// Setup the next frame of the drawing
-	  webkitRequestAnimationFrame(draw);
-	  
-	  // Create a new array that we can copy the frequency data into
-		var freqByteData = new Uint8Array(analyser.frequencyBinCount);
-		// Copy the frequency data into our new array
-		analyser.getByteFrequencyData(freqByteData);
-
-		//console.log(freqByteData);
-
-		// Clear the drawing display
-		canvasContext.clearRect(0, 0, canvas.width, canvas.height);
-
-		// For each "bucket" in the frequency data, draw a line corresponding to its magnitude
-		for (var i = 0; i < freqByteData.length; i++) {
-			canvasContext.fillRect(i, canvas.height - freqByteData[i], 1, canvas.height);
-		}
-	}
+	radio('Audio:start').subscribe(function() {
+		visualisation.init();
+	});
 
 
 	/* 
@@ -164,13 +123,6 @@ $(function() {
 	    outputMix.connect( audioContext.destination);
 
 	    window.s = audioInput;
-
-	    /* Visualise */
-	    //setupWebAudio();
-	    //var canvas = setupDrawingCanvas();
-	    //draw(canvas);
-
-	    visualisation.init();
 
 	    //currentEffectNode = createReverb();
 	    //currentEffectNode.connect(audioInput);

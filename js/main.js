@@ -28,6 +28,7 @@ $(function() {
         startVideo();
         startAudio();
         audioEnabled();
+        radio("Audio:start").broadcast();
     });
 });
 
